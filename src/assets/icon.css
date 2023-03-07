@@ -1,0 +1,49 @@
+.icon {
+  content: '';
+  width: 1em;
+  height: 1em;
+
+  -webkit-mask-size: contain;
+  mask-size: contain;
+
+  -webkit-mask-position: center;
+  mask-position: center;
+
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+}
+
+.icon.icon--drag {
+  -webkit-mask-image: url(../assets/icons/OverflowMenuSecond.svg);
+  mask-image: url(../assets/icons/OverflowMenuSecond.svg);
+}
+
+.icon.icon--arrow-up {
+  -webkit-mask-image: url(../assets/icons/ArrowUp.svg);
+  mask-image: url(../assets/icons/ArrowUp.svg);
+}
+
+.icon.icon--arrow-down {
+  -webkit-mask-image: url(../assets/icons/ArrowDown.svg);
+  mask-image: url(../assets/icons/ArrowDown.svg);
+}
+
+.icon.icon--chevron-down {
+  -webkit-mask-image: url(../assets/icons/ChevronDown.svg);
+  mask-image: url(../assets/icons/ChevronDown.svg);
+}
+
+.icon.icon--chevron-up {
+  -webkit-mask-image: url(../assets/icons/ChevronUp.svg);
+  mask-image: url(../assets/icons/ChevronUp.svg);
+}
+
+.icon.icon--garbage {
+  -webkit-mask-image: url(../assets/icons/Garbage.svg);
+  mask-image: url(../assets/icons/Garbage.svg);
+}
+
+.icon.icon--note-edit {
+  -webkit-mask-image: url(../assets/icons/NoteEdit.svg);
+  mask-image: url(../assets/icons/NoteEdit.svg);
+}

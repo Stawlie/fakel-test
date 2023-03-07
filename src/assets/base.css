@@ -1,20 +1,21 @@
 :root {
-  --background-color: #E5E9EF;
-  --stage-backgroud-color: #D5DCE5;
-  --card-background-color: #FFFFFF;
-  --input-background-color: #F0F3F8;
+  --background-color: #e5e9ef;
+  --stage-backgroud-color: #d5dce5;
+  --card-background-color: #ffffff;
+  --input-background-color: #f0f3f8;
 
-  --primary-color: #38393D;
-  --secondary-color: #71747C;
+  --text-primary-color: #38393d;
+  --text-secondary-color: #71747c;
 
-  --button-color: #7CABE3;
+  --action-icon-color: #7d8ca1;
+  --drag-icon-color: #b3b3b3;
 
-  --icon-color: #71747C;
+  --button-color: #7cabe3;
 
-  --borader-radius: .25rem;
+  --borader-radius: 0.25rem;
 
   --stage-gap: 1.5rem;
-  --card-gap: .5rem;
+  --card-gap: 0.5rem;
 }
 
 *,
@@ -27,7 +28,7 @@
 
 body {
   min-height: 100vh;
-  color: var(--primary-color);
+  color: var(--text-primary-color);
   background: var(--background-color);
   line-height: 1.2;
   font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
