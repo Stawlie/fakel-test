@@ -1,0 +1,36 @@
+:root {
+  --background-color: #E5E9EF;
+  --stage-backgroud-color: #D5DCE5;
+  --card-background-color: #FFFFFF;
+  --input-background-color: #F0F3F8;
+
+  --primary-color: #38393D;
+  --secondary-color: #71747C;
+
+  --button-color: #7CABE3;
+
+  --icon-color: #71747C;
+
+  --borader-radius: .25rem;
+
+  --stage-gap: 1.5rem;
+  --card-gap: .5rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  color: var(--primary-color);
+  background: var(--background-color);
+  line-height: 1.2;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+    Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-size: 16px;
+}
