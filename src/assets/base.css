@@ -4,16 +4,18 @@
   --card-background-color: #ffffff;
   --input-background-color: #f0f3f8;
 
-  --text-primary-color: #38393d;
-  --text-secondary-color: #71747c;
+  --card-dash-color: #bac4d0;
 
-  --action-icon-color: #7d8ca1;
+  --primary-color: #38393d;
+  --secondary-color: #71747c;
+  --variant-secondary-color: #7d8ca1;
+
   --drag-icon-color: #b3b3b3;
 
-  --button-color: #7cabe3;
+  --button-background-color: #7cabe3;
+  --button-text-color: #ffffff;
 
-  --borader-radius: 0.25rem;
-
+  --border-radius: 0.25rem;
   --stage-gap: 1.5rem;
   --card-gap: 0.5rem;
 }
@@ -24,14 +26,13 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: Inter, sans-serif;
 }
 
 body {
   min-height: 100vh;
-  color: var(--text-primary-color);
+  color: var(--primary-color);
   background: var(--background-color);
   line-height: 1.2;
-  font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
-    Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   font-size: 16px;
 }

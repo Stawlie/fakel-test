@@ -1,7 +1,9 @@
 .icon {
   content: '';
+  font-size: 1rem;
   width: 1em;
   height: 1em;
+  background-color: var(--secondary-color);
 
   -webkit-mask-size: contain;
   mask-size: contain;
@@ -31,11 +33,6 @@
 .icon.icon--chevron-down {
   -webkit-mask-image: url(../assets/icons/ChevronDown.svg);
   mask-image: url(../assets/icons/ChevronDown.svg);
-}
-
-.icon.icon--chevron-up {
-  -webkit-mask-image: url(../assets/icons/ChevronUp.svg);
-  mask-image: url(../assets/icons/ChevronUp.svg);
 }
 
 .icon.icon--garbage {
