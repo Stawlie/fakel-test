@@ -5,11 +5,13 @@ type FormControlProps = {
   text: string;
   required?: boolean;
   position?: 'horizontal' | 'vertical';
+  wide?: boolean;
 };
 
 const props = withDefaults(defineProps<FormControlProps>(), {
   required: false,
-  position: 'vertical'
+  position: 'vertical',
+  wide: false
 });
 
 const formControlClasses = computed(() => {
@@ -20,12 +22,21 @@ const formControlClasses = computed(() => {
     }
   ];
 });
+
+const valueClasses = computed(() => {
+  return [
+    'form-control__value',
+    {
+      wide: props.wide
+    }
+  ];
+});
 </script>
 
 <template>
   <div :class="formControlClasses">
     <p class="form-control__text">{{ text }}<span v-if="required" class="asterisk"> *</span>:</p>
-    <div class="form-control__value">
+    <div :class="valueClasses">
       <slot></slot>
     </div>
   </div>
@@ -41,5 +52,6 @@ const formControlClasses = computed(() => {
 .form-control--vertical {
   flex-direction: column;
   align-items: flex-start;
+  width: 100%;
 }
 </style>

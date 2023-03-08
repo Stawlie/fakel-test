@@ -1,19 +1,20 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
 
+import { LOADING_TIME } from './utils';
 import { useStore } from './store/useStore';
 
 // Components
 import HeaderComponent from './components/HeaderComponent.vue';
 import StagesList from './components/StagesList.vue';
 import Loader from './components/Loader.vue';
+import Modal from './components/Modal.vue';
 
-const { isLoaded, setIsLoaded } = useStore();
-
-const LOADING_TIME = 2000;
+const { resetState, isLoaded, setIsLoaded, selectedCard } = useStore();
 
 onMounted(() => {
-  setIsLoaded.value(false);
+  resetState.value();
+
   setTimeout(() => {
     setIsLoaded.value(true);
   }, LOADING_TIME);
@@ -27,8 +28,10 @@ onMounted(() => {
         <header-component></header-component>
         <stages-list></stages-list>
       </div>
-
       <loader v-else></loader>
+    </transition>
+    <transition name="fade">
+      <modal v-if="selectedCard"></modal>
     </transition>
   </main>
 </template>

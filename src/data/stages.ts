@@ -1,6 +1,6 @@
-import type { Stage } from '@/store/useStore';
+import type { StageType } from '@/store/useStore';
 
-const STAGES: Stage[] = [
+const STAGES: StageType[] = [
   {
     id: 1,
     sort: 10,

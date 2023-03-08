@@ -28,19 +28,31 @@ export type CardType = {
   score: number;
 };
 
+export type SelectedCardType = {
+  id: number | null;
+  title: string | null;
+  stage: string | null;
+  project: string | false;
+  score: number | null;
+};
+
 type Store = {
   projectsList: ProjectType[];
   stagesList: StageType[];
   cardsList: CardType[];
   projectFilter: ProjectType['code'];
   isLoaded: boolean;
+  selectedCard: SelectedCardType | null;
 };
 
 type StoreActions = {
+  resetState: () => void;
   setProjectFilter: (projectFilter: ProjectType['code']) => void;
   setIsLoaded: (isLoaded: boolean) => void;
   addCard: (card: CardType) => void;
   deleteCard: (id: CardType['id']) => void;
+  updateCard: (card: CardType) => void;
+  setSelectedCard: (selectedCard: SelectedCardType | null) => void;
 };
 
 export const STORAGE_NAME = 'appStore';
@@ -53,6 +65,14 @@ export const useStore = create<Store & StoreActions>()(
       cardsList: CARDS,
       projectFilter: '',
       isLoaded: false,
+      selectedCard: null,
+      resetState() {
+        return set({
+          projectFilter: '',
+          isLoaded: false,
+          selectedCard: null
+        });
+      },
       setProjectFilter(projectFilter) {
         return set({ projectFilter });
       },
@@ -71,6 +91,23 @@ export const useStore = create<Store & StoreActions>()(
           return {
             cardsList: state.cardsList.filter((card) => card.id !== id)
           };
+        });
+      },
+      updateCard(card) {
+        return set((state) => {
+          return {
+            cardsList: state.cardsList.map((item) => (item.id === card.id ? card : item))
+          };
+        });
+      },
+      setSelectedCard(selectedCard) {
+        if (selectedCard === null) {
+          return set({ selectedCard: null });
+        }
+        return set({
+          selectedCard: {
+            ...selectedCard
+          }
         });
       }
     }),

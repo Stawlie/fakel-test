@@ -1,10 +1,8 @@
 <script setup lang="ts">
+import type { Option } from '@/utils';
 type SelectProps = {
   modelValue: unknown;
-  options: {
-    value: SelectProps['modelValue'];
-    text: string;
-  }[];
+  options: Option[];
   required?: boolean;
 };
 
@@ -27,7 +25,13 @@ function updateModel(event: Event) {
       class="icon icon--chevron-down select-icon"
       style="background-color: var(--variant-secondary-color)"
     ></div>
-    <select ref="select" v-bind="$attrs" @change="updateModel($event)" class="select">
+    <select
+      :required="required"
+      ref="select"
+      v-bind="$attrs"
+      @change="updateModel($event)"
+      class="select"
+    >
       <option selected :disabled="required" value="">Не выбрано</option>
       <option
         v-for="option in options"

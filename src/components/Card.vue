@@ -2,13 +2,13 @@
 import type { CardType } from '@/store/useStore';
 import { useStore } from '@/store/useStore';
 
-const { projectsList, deleteCard } = useStore();
-
 type CardProps = {
   card: CardType;
 };
 
-const props = defineProps<CardProps>();
+defineProps<CardProps>();
+
+const { projectsList, deleteCard, setSelectedCard } = useStore();
 
 function getProjectName(code: CardType['project']) {
   return projectsList.value.find((project) => project.code === code)?.name;
@@ -21,7 +21,11 @@ function getProjectName(code: CardType['project']) {
       <div class="card__header">
         <h4>{{ card.title }}</h4>
         <div class="card__header-actions">
-          <div class="icon icon--note-edit" style="font-size: 1.0625rem"></div>
+          <div
+            class="icon icon--note-edit"
+            @click="setSelectedCard(card)"
+            style="font-size: 1.0625rem"
+          ></div>
           <div class="icon icon--garbage" @click="deleteCard(card.id)"></div>
         </div>
       </div>
@@ -95,6 +99,6 @@ function getProjectName(code: CardType['project']) {
 
 .card__draggable {
   padding: 0 0.5rem;
-  cursor: grab;
+  cursor: move;
 }
 </style>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 type InputProps = {
-  modelValue: string;
+  modelValue: string | number | null;
 };
 
 defineProps<InputProps>();
@@ -21,6 +21,7 @@ function updateModel(event: Event) {
 <style scoped>
 .input {
   background-color: var(--input-background-color);
+  width: 100%;
   padding: 0.5rem 1rem;
   outline: none;
   border: none;

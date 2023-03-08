@@ -1,6 +1,6 @@
-import type { Project } from '@/store/useStore';
+import type { ProjectType } from '@/store/useStore';
 
-const PROJECTS: Project[] = [
+const PROJECTS: ProjectType[] = [
   {
     id: 1,
     code: 'project-1',

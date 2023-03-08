@@ -5,7 +5,7 @@ import Card from './Card.vue';
 import { useStore } from '@/store/useStore';
 import { computed, ref } from 'vue';
 
-const { cardsList, projectFilter } = useStore();
+const { cardsList, projectFilter, setSelectedCard } = useStore();
 
 type StageProps = {
   stage: StageType;
@@ -74,6 +74,16 @@ function changeSort(newSort: Sort) {
 
   sort.value = newSort;
 }
+
+function addCardToStage() {
+  setSelectedCard.value({
+    id: null,
+    project: '',
+    score: null,
+    stage: props.stage.code,
+    title: ''
+  });
+}
 </script>
 
 <template>
@@ -95,7 +105,7 @@ function changeSort(newSort: Sort) {
       <div v-if="cards.length === 0" class="stage__list-empty">Список пуст</div>
     </div>
 
-    <button-component text wide>Добавить</button-component>
+    <button-component @click="addCardToStage" text wide>Добавить</button-component>
   </div>
 </template>
 
@@ -105,7 +115,7 @@ function changeSort(newSort: Sort) {
   flex-shrink: 1;
   flex-direction: column;
   gap: 0.75rem;
-  padding: 1.25rem;
+  padding: 0.75rem;
 
   background-color: var(--stage-backgroud-color);
   border-radius: var(--border-radius);

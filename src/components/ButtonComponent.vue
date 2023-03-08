@@ -15,10 +15,8 @@ const buttonClasses = computed(() => {
   return [
     'button',
     {
-      'button--text': props.text
-    },
-    {
-      'button--wide': props.wide
+      'button--text': props.text,
+      wide: props.wide
     }
   ];
 });
@@ -41,10 +39,6 @@ const buttonClasses = computed(() => {
   cursor: pointer;
   font-size: 0.8125rem;
   padding: 0.5rem 1.25rem;
-}
-
-.button.button--wide {
-  width: 100%;
 }
 
 .button:hover {

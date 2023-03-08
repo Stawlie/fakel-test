@@ -1,6 +1,6 @@
-import type { Card } from '@/store/useStore';
+import type { CardType } from '@/store/useStore';
 
-const CARDS: Card[] = [
+const CARDS: CardType[] = [
   {
     id: 1,
     title: 'Карточка 1',

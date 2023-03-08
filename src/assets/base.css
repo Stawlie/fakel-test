@@ -3,6 +3,7 @@
   --stage-backgroud-color: #d5dce5;
   --card-background-color: #ffffff;
   --input-background-color: #f0f3f8;
+  --modal-background-color: rgba(0, 0, 0, 20%);
 
   --primary-color: #38393d;
   --secondary-color: #71747c;
@@ -27,7 +28,12 @@
 
 body {
   min-height: 100vh;
+  min-height: 100svh;
   color: var(--primary-color);
   background: var(--background-color);
   font-size: 16px;
+}
+
+.wide {
+  width: 100%;
 }

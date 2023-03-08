@@ -2,25 +2,41 @@
 import ButtonComponent from './ButtonComponent.vue';
 import FormControl from './FormControl.vue';
 import SelectComponent from './SelectComponent.vue';
-import { ref, computed } from 'vue';
+import { computed } from 'vue';
 
+import { makeOptions, LOADING_TIME } from '@/utils';
 import { useStore } from '@/store/useStore';
 
-const { projectsList, projectFilter, setProjectFilter, addCard } = useStore();
+const {
+  projectsList,
+  stagesList,
+  cardsList,
+  projectFilter,
+  setProjectFilter,
+  setIsLoaded,
+  addCard
+} = useStore();
 
-const projectOptions = computed<
-  {
-    value: string;
-    text: string;
-  }[]
->(() => {
-  return projectsList.value.map((project) => {
-    return {
-      value: project.code,
-      text: project.name
-    };
-  });
+const projectOptions = computed(() => {
+  return makeOptions(projectsList.value, 'code', 'name');
 });
+
+function removeLink(json: unknown) {
+  return JSON.parse(JSON.stringify(json));
+}
+
+function saveChanges() {
+  setIsLoaded.value(false);
+  setTimeout(() => {
+    setIsLoaded.value(true);
+    console.log('Сохранённые данные:', {
+      projects: removeLink(projectsList.value),
+      stages: removeLink(stagesList.value),
+      cards: removeLink(cardsList.value)
+    });
+    alert('Данные сформированы и выведены в консоль');
+  }, LOADING_TIME);
+}
 </script>
 
 <template>
@@ -35,7 +51,7 @@ const projectOptions = computed<
         />
       </form-control>
       <button-component>Добавить карточку</button-component>
-      <button-component>Сохранить изменения</button-component>
+      <button-component @click="saveChanges">Сохранить изменения</button-component>
     </div>
   </header>
 </template>

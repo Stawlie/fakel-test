@@ -44,3 +44,8 @@
   -webkit-mask-image: url(../assets/icons/NoteEdit.svg);
   mask-image: url(../assets/icons/NoteEdit.svg);
 }
+
+.icon.icon--close {
+  -webkit-mask-image: url(../assets/icons/CloseBig.svg);
+  mask-image: url(../assets/icons/CloseBig.svg);
+}
