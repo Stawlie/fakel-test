@@ -6,21 +6,21 @@ import PROJECTS from '@/data/projects';
 import STAGES from '@/data/stages';
 import CARDS from '@/data/cards';
 
-export type Project = {
+export type ProjectType = {
   id: number;
   code: string;
   name: string;
   sort: number;
 };
 
-export type Stage = {
+export type StageType = {
   id: number;
   sort: number;
   name: string;
   code: string;
 };
 
-export type Card = {
+export type CardType = {
   id: number;
   title: string;
   stage: string;
@@ -29,18 +29,18 @@ export type Card = {
 };
 
 type Store = {
-  projectsList: Project[];
-  stagesList: Stage[];
-  cardsList: Card[];
+  projectsList: ProjectType[];
+  stagesList: StageType[];
+  cardsList: CardType[];
+  projectFilter: ProjectType['code'];
   isLoaded: boolean;
 };
 
 type StoreActions = {
-  setProjectsList: (projectsList: Project[]) => void;
-  setStagesList: (stagesList: Stage[]) => void;
-  setCardsList: (cardsList: Card[]) => void;
+  setProjectFilter: (projectFilter: ProjectType['code']) => void;
   setIsLoaded: (isLoaded: boolean) => void;
-  addCard: (card: Card) => void;
+  addCard: (card: CardType) => void;
+  deleteCard: (id: CardType['id']) => void;
 };
 
 export const STORAGE_NAME = 'appStore';
@@ -51,15 +51,10 @@ export const useStore = create<Store & StoreActions>()(
       projectsList: PROJECTS,
       stagesList: STAGES,
       cardsList: CARDS,
+      projectFilter: '',
       isLoaded: false,
-      setProjectsList(projectsList) {
-        return set({ projectsList });
-      },
-      setStagesList(stagesList) {
-        return set({ stagesList });
-      },
-      setCardsList(cardsList) {
-        return set({ cardsList });
+      setProjectFilter(projectFilter) {
+        return set({ projectFilter });
       },
       setIsLoaded(isLoaded) {
         return set({ isLoaded });
@@ -68,6 +63,13 @@ export const useStore = create<Store & StoreActions>()(
         return set((state) => {
           return {
             cardsList: [...state.cardsList, card]
+          };
+        });
+      },
+      deleteCard(id) {
+        return set((state) => {
+          return {
+            cardsList: state.cardsList.filter((card) => card.id !== id)
           };
         });
       }

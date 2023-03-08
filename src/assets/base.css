@@ -4,8 +4,6 @@
   --card-background-color: #ffffff;
   --input-background-color: #f0f3f8;
 
-  --card-dash-color: #bac4d0;
-
   --primary-color: #38393d;
   --secondary-color: #71747c;
   --variant-secondary-color: #7d8ca1;
@@ -16,8 +14,6 @@
   --button-text-color: #ffffff;
 
   --border-radius: 0.25rem;
-  --stage-gap: 1.5rem;
-  --card-gap: 0.5rem;
 }
 
 *,
@@ -33,6 +29,5 @@ body {
   min-height: 100vh;
   color: var(--primary-color);
   background: var(--background-color);
-  line-height: 1.2;
   font-size: 16px;
 }

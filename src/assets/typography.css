@@ -28,3 +28,9 @@ p {
   font-weight: 400;
   color: var(--secondary-color);
 }
+
+span {
+  /* 12px */
+  font-size: 0.75rem;
+  font-weight: 600;
+}

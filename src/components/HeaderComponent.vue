@@ -6,9 +6,7 @@ import { ref, computed } from 'vue';
 
 import { useStore } from '@/store/useStore';
 
-const { projectsList } = useStore();
-
-const projectFilter = ref('');
+const { projectsList, projectFilter, setProjectFilter, addCard } = useStore();
 
 const projectOptions = computed<
   {
@@ -30,7 +28,11 @@ const projectOptions = computed<
     <h1>Карточки</h1>
     <div class="header__actions">
       <form-control position="horizontal" text="Проект">
-        <select-component :options="projectOptions" v-model="projectFilter" />
+        <select-component
+          :options="projectOptions"
+          :model-value="projectFilter"
+          @update:model-value="setProjectFilter"
+        />
       </form-control>
       <button-component>Добавить карточку</button-component>
       <button-component>Сохранить изменения</button-component>

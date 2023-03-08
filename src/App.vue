@@ -25,7 +25,7 @@ onMounted(() => {
     <transition name="fade">
       <div class="app" v-if="isLoaded">
         <header-component></header-component>
-        <!-- <stages-list :stages="STAGES_LIST"></stages-list> -->
+        <stages-list></stages-list>
       </div>
 
       <loader v-else></loader>
@@ -34,11 +34,12 @@ onMounted(() => {
 </template>
 
 <style scoped>
+.app-wrapper {
+  padding: 2rem 1rem;
+}
 .app {
   display: flex;
   flex-direction: column;
-  /* Сделал паддинг, чтобы немного отодвинуть от верхушки */
-  padding-top: 2rem;
   max-width: 1340px;
   margin: 0 auto;
   gap: 1.25rem;

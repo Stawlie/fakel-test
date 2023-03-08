@@ -59,6 +59,6 @@ const buttonClasses = computed(() => {
 
 .button.button--text.button:hover {
   /* Свой цвет при наведении */
-  background-color: #ddd;
+  background-color: #fff;
 }
 </style>
