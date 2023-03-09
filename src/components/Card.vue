@@ -26,7 +26,7 @@ function getProjectName(code: CardType['project']) {
             @click="setSelectedCard(card)"
             style="font-size: 1.0625rem"
           ></div>
-          <div class="icon icon--garbage" @click="deleteCard(card.id)"></div>
+          <div class="icon icon--garbage" @click="deleteCard(card)"></div>
         </div>
       </div>
       <div class="card__description">
@@ -63,6 +63,13 @@ function getProjectName(code: CardType['project']) {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+
+.card__header h4 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 17ch;
 }
 
 .card__header-actions {

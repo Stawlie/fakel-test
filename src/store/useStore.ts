@@ -39,18 +39,21 @@ export type SelectedCardType = {
 type Store = {
   projectsList: ProjectType[];
   stagesList: StageType[];
-  cardsList: CardType[];
-  projectFilter: ProjectType['code'];
+  cardsObject: {
+    [TKey in StageType['code']]: CardType[];
+  };
+  projectFilter: ProjectType['code'] | false;
   isLoaded: boolean;
   selectedCard: SelectedCardType | null;
 };
 
 type StoreActions = {
   resetState: () => void;
-  setProjectFilter: (projectFilter: ProjectType['code']) => void;
+  setProjectFilter: (projectFilter: ProjectType['code'] | false) => void;
   setIsLoaded: (isLoaded: boolean) => void;
+  updateCardsObject: (card: CardType[], stage: StageType['code']) => void;
   addCard: (card: CardType) => void;
-  deleteCard: (id: CardType['id']) => void;
+  deleteCard: (card: CardType) => void;
   updateCard: (card: CardType) => void;
   setSelectedCard: (selectedCard: SelectedCardType | null) => void;
 };
@@ -62,15 +65,24 @@ export const useStore = create<Store & StoreActions>()(
     (set) => ({
       projectsList: PROJECTS,
       stagesList: STAGES,
-      cardsList: CARDS,
-      projectFilter: '',
+      cardsObject: makecardsObject(CARDS, STAGES),
+      projectFilter: false,
       isLoaded: false,
       selectedCard: null,
       resetState() {
-        return set({
-          projectFilter: '',
-          isLoaded: false,
-          selectedCard: null
+        return set((state) => {
+          if (state.selectedCard?.stage === null) {
+            return {
+              projectFilter: false,
+              isLoaded: false
+            };
+          }
+
+          return {
+            projectFilter: false,
+            isLoaded: false,
+            selectedCard: null
+          };
         });
       },
       setProjectFilter(projectFilter) {
@@ -79,24 +91,45 @@ export const useStore = create<Store & StoreActions>()(
       setIsLoaded(isLoaded) {
         return set({ isLoaded });
       },
-      addCard(card) {
+      updateCardsObject(cards, stage) {
         return set((state) => {
           return {
-            cardsList: [...state.cardsList, card]
+            cardsObject: {
+              ...state.cardsObject,
+              [stage]: cards
+            }
           };
         });
       },
-      deleteCard(id) {
+      addCard(card) {
         return set((state) => {
           return {
-            cardsList: state.cardsList.filter((card) => card.id !== id)
+            cardsObject: {
+              ...state.cardsObject,
+              [card.stage]: [...state.cardsObject[card.stage], card]
+            }
+          };
+        });
+      },
+      deleteCard(card) {
+        return set((state) => {
+          return {
+            cardsObject: {
+              ...state.cardsObject,
+              [card.stage]: state.cardsObject[card.stage].filter((item) => item.id !== card.id)
+            }
           };
         });
       },
       updateCard(card) {
         return set((state) => {
           return {
-            cardsList: state.cardsList.map((item) => (item.id === card.id ? card : item))
+            cardsObject: {
+              ...state.cardsObject,
+              [card.stage]: state.cardsObject[card.stage].map((item) =>
+                item.id === card.id ? card : item
+              )
+            }
           };
         });
       },
@@ -114,3 +147,15 @@ export const useStore = create<Store & StoreActions>()(
     { name: STORAGE_NAME, version: 1 }
   )
 );
+
+function makecardsObject(cardsList: CardType[], stagesList: StageType[]) {
+  const tempObject: Record<string, CardType[]> = {};
+
+  stagesList
+    .map((item) => item.code)
+    .forEach((stage) => {
+      tempObject[stage] = cardsList.filter((card) => card.stage === stage);
+    });
+
+  return tempObject;
+}

@@ -11,7 +11,7 @@ import router from '@/router';
 const {
   projectsList,
   stagesList,
-  cardsList,
+  cardsObject,
   projectFilter,
   setProjectFilter,
   setIsLoaded,
@@ -33,7 +33,7 @@ function saveChanges() {
     console.log('Сохранённые данные:', {
       projects: removeLink(projectsList.value),
       stages: removeLink(stagesList.value),
-      cards: removeLink(cardsList.value)
+      cards: removeLink(Object.values(cardsObject.value).flat())
     });
     alert('Данные сформированы и выведены в консоль');
   }, LOADING_TIME);
@@ -73,10 +73,13 @@ function clickAddCard() {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
 .header__actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.5rem;
 }
 </style>

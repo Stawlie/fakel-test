@@ -43,7 +43,7 @@ onUnmounted(() => {
   left: 0;
   width: 100vw;
   height: 100vh;
-  height: 100svh;
+  height: 100dvh;
 
   display: flex;
   align-items: center;

@@ -15,7 +15,7 @@ const emit = defineEmits(['update:modelValue']);
 function updateModel(event: Event) {
   const target = event.target as HTMLSelectElement;
 
-  emit('update:modelValue', target.value);
+  emit('update:modelValue', target.value ? target.value : false);
 }
 </script>
 

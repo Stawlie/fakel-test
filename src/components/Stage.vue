@@ -4,8 +4,9 @@ import ButtonComponent from './ButtonComponent.vue';
 import Card from './Card.vue';
 import { useStore } from '@/store/useStore';
 import { computed, ref } from 'vue';
+import draggable from 'vuedraggable';
 
-const { cardsList, projectFilter, setSelectedCard } = useStore();
+const { cardsObject, updateCardsObject, projectFilter, setSelectedCard } = useStore();
 
 type StageProps = {
   stage: StageType;
@@ -16,12 +17,6 @@ type Sort = 'ASC' | 'DESC' | null;
 const props = defineProps<StageProps>();
 
 const sort = ref<Sort>(null);
-
-const cards = computed(() => {
-  const filteredCards = filterCardsList();
-
-  return sortCards(filteredCards);
-});
 
 const ascSortClasses = computed(() => {
   return [
@@ -45,15 +40,6 @@ const descSortClasses = computed(() => {
   ];
 });
 
-function filterCardsList() {
-  return cardsList.value.filter((card) => {
-    return (
-      card.stage === props.stage.code &&
-      (!projectFilter.value || card.project === projectFilter.value)
-    );
-  });
-}
-
 function sortCards(cards: CardType[]) {
   if (sort.value === 'ASC') {
     return cards.sort((a, b) => b.score - a.score);
@@ -67,12 +53,14 @@ function sortCards(cards: CardType[]) {
 }
 
 function changeSort(newSort: Sort) {
-  if (newSort === sort.value) {
-    sort.value = null;
-    return;
-  }
-
   sort.value = newSort;
+}
+
+function isAllFiltered(cards: CardType[]) {
+  return (
+    cards.filter((card) => !projectFilter.value || projectFilter.value === card.project).length ===
+    0
+  );
 }
 
 function addCardToStage() {
@@ -83,6 +71,20 @@ function addCardToStage() {
     stage: props.stage.code,
     title: ''
   });
+}
+
+function updateModel(newValue: CardType[]) {
+  sort.value = null;
+
+  updateCardsObject.value(
+    newValue.map((item) => {
+      return {
+        ...item,
+        stage: props.stage.code
+      };
+    }),
+    props.stage.code
+  );
 }
 </script>
 
@@ -100,10 +102,26 @@ function addCardToStage() {
       </div>
     </div>
 
-    <div class="stage__list">
-      <card v-for="card in cards" :card="card"></card>
-      <div v-if="cards.length === 0" class="stage__list-empty">Список пуст</div>
-    </div>
+    <draggable
+      :model-value="sort ? sortCards([...cardsObject[stage.code]]) : cardsObject[stage.code]"
+      @update:model-value="updateModel"
+      class="stage__list"
+      handle=".card__draggable"
+      group="cards-list"
+      item-key="id"
+    >
+      <template #item="{ element }">
+        <card v-if="!projectFilter || projectFilter === element.project" :card="element"></card>
+      </template>
+      <template #footer>
+        <div
+          v-if="cardsObject[stage.code].length === 0 || isAllFiltered(cardsObject[stage.code])"
+          class="stage__empty"
+        >
+          Список пуст
+        </div>
+      </template>
+    </draggable>
 
     <button-component @click="addCardToStage" text wide>Добавить</button-component>
   </div>
@@ -161,10 +179,11 @@ function addCardToStage() {
   gap: 0.5rem;
 }
 
-.stage__list-empty {
+.stage__empty {
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 7.5rem;
 
   font-size: 0.8125rem;
   color: var(--variant-secondary-color);

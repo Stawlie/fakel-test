@@ -23,8 +23,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
-  background-color: var(--button-background-color);
 }
 
 .loader {
@@ -41,10 +39,10 @@
   width: 8rem;
   height: 8rem;
   margin: 1rem;
-  border: 1rem solid #fff;
+  border: 1rem solid var(--button-background-color);
   border-radius: 50%;
   animation: loader 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-  border-color: #fff transparent transparent transparent;
+  border-color: var(--button-background-color) transparent transparent transparent;
 }
 
 .loader div:nth-child(1) {

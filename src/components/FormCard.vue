@@ -15,8 +15,15 @@ type AddingCardProps = {
 
 const props = defineProps<AddingCardProps>();
 
-const { selectedCard, cardsList, projectsList, setSelectedCard, stagesList, addCard, updateCard } =
-  useStore();
+const {
+  selectedCard,
+  cardsObject,
+  projectsList,
+  setSelectedCard,
+  stagesList,
+  addCard,
+  updateCard
+} = useStore();
 
 const form = ref<HTMLFormElement>();
 
@@ -53,10 +60,11 @@ function getButtonText() {
 }
 
 function closeCard() {
+  setSelectedCard.value(null);
+
   if (props.type === 'page') {
     router.push('/');
   }
-  setSelectedCard.value(null);
 }
 
 function buttonAction() {
@@ -89,7 +97,10 @@ function buttonAction() {
 }
 
 function getId() {
-  const sortedIds = cardsList.value.map((card) => card.id).sort((a, b) => a - b);
+  const sortedIds = Object.values(cardsObject.value)
+    .flat()
+    .map((card) => card.id)
+    .sort((a, b) => a - b);
 
   for (let i = 1; i <= sortedIds.length; i++) {
     if (sortedIds[i] - sortedIds[i - 1] > 1) {

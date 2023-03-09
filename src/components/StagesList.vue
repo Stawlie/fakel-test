@@ -14,7 +14,7 @@ const { stagesList } = useStore();
 <style scoped>
 .stages {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(max(20rem, (100% - 3.75rem)/4), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(max(18rem, (100% - 3.75rem)/4), 1fr));
   align-items: flex-start;
   grid-gap: 1.25rem;
 }
