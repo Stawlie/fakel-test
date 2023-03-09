@@ -6,6 +6,7 @@ import { computed } from 'vue';
 
 import { makeOptions, LOADING_TIME } from '@/utils';
 import { useStore } from '@/store/useStore';
+import router from '@/router';
 
 const {
   projectsList,
@@ -14,7 +15,7 @@ const {
   projectFilter,
   setProjectFilter,
   setIsLoaded,
-  addCard
+  setSelectedCard
 } = useStore();
 
 const projectOptions = computed(() => {
@@ -37,6 +38,17 @@ function saveChanges() {
     alert('Данные сформированы и выведены в консоль');
   }, LOADING_TIME);
 }
+
+function clickAddCard() {
+  router.push('add');
+  setSelectedCard.value({
+    id: null,
+    project: false,
+    score: null,
+    stage: null,
+    title: null
+  });
+}
 </script>
 
 <template>
@@ -50,7 +62,7 @@ function saveChanges() {
           @update:model-value="setProjectFilter"
         />
       </form-control>
-      <button-component>Добавить карточку</button-component>
+      <button-component @click="clickAddCard">Добавить карточку</button-component>
       <button-component @click="saveChanges">Сохранить изменения</button-component>
     </div>
   </header>

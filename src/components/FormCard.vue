@@ -7,6 +7,8 @@ import { ref, computed } from 'vue';
 import { useStore, type CardType } from '@/store/useStore';
 import { makeOptions } from '@/utils';
 
+import router from '@/router';
+
 type AddingCardProps = {
   type: 'modal-change' | 'modal-add' | 'page';
 };
@@ -51,6 +53,9 @@ function getButtonText() {
 }
 
 function closeCard() {
+  if (props.type === 'page') {
+    router.push('/');
+  }
   setSelectedCard.value(null);
 }
 
@@ -62,6 +67,15 @@ function buttonAction() {
       score: Number(fullSelectedCard.score),
       id: getId()
     });
+  }
+
+  if (props.type === 'page') {
+    addCard.value({
+      ...fullSelectedCard,
+      score: Number(fullSelectedCard.score),
+      id: getId()
+    });
+    router.push('/');
   }
 
   if (props.type === 'modal-change') {
